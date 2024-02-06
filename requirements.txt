@@ -1,3 +1,4 @@
 termcolor
 colorama
 paramiko
+mysql-connector-python
