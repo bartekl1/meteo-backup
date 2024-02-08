@@ -157,5 +157,12 @@ if len(result) == 0:
             + f', PRIMARY KEY ({primary_key}) )'
 
     cursor.execute(query)
+else:
+    local_table_columns = [col["COLUMN_NAME"] for col in result]
+    compatible = False not in [col["name"] in local_table_columns for col in remote_table]
+
+    if not compatible:
+        print(colored('Warning! Local table is incompatible.', 'yellow'))
+
 
 print('Checking databases', colored('Done!', 'green'))
