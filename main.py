@@ -191,7 +191,10 @@ try:
             if row['id'] not in result.keys():
                 rows_to_insert.append(row)
             else:
-                pass
+                conflict = False in [str(row[col]) == str(result[row['id']][col]) for col in row.keys()]
+
+                if conflict:
+                    conflicts.append(row['id'])
 
             rows_processed += 1
             last_id = row['id']
@@ -200,12 +203,21 @@ try:
             sql = 'INSERT INTO readings (' + ', '.join(rows[0].keys()) + \
                 ') VALUES (' + ('%s, ' * len(rows[0].keys()))[:-2] + ')'
 
-            cursor.executemany(sql, [tuple(row.values()) for row in rows])
+            cursor.executemany(sql, [tuple(row.values()) for row in rows_to_insert])
             db.commit()
 
         print('Importing', colored(f'{rows_processed}/{rows_number}', 'blue'), end='\r')
 
+    cur.close()
+    con.close()
+
+    os.remove('sqlite.tmp.db')
+
     print('Importing', colored('Done!', 'green'), ' ' * 10)
+
+    if len(conflicts) != 0:
+        print(colored('\nWarning! Found conflicts:', 'yellow'),
+              ', '.join([str(c) for c in conflicts]))
 
     print(colored('\nDone!', 'blue'))
 
