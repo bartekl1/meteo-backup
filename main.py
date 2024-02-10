@@ -20,7 +20,7 @@ try:
     colorama.init()
 
     print(" *************************************************")
-    print(" *                 meteo-backup                  *")
+    print(" *                 Meteo Backup                  *")
     print(" *   Database backup tool for my meteo station   *")
     print(" *   https://github.com/bartekl1/meteo-backup    *")
     print(" *          by @bartekl1         v. 1.0          *")
