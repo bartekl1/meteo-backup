@@ -1,0 +1,19 @@
+{
+    "ssh": {
+        "host": "hostname",
+        "user": "username",
+        "password": "password"
+    },
+    "remote_mysql": {
+        "host": "hostname",
+        "user": "username",
+        "password": "password",
+        "database": "meteo"
+    },
+    "local_mysql": {
+        "host": "hostname",
+        "user": "username",
+        "password": "password",
+        "database": "meteo_backup"
+    }
+}
